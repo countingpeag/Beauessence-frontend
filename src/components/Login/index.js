@@ -6,6 +6,13 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import '../../styles/LoginStyles.css';
 
 class Login extends Component{
+    
+    clickHandler(){
+        const {submitHandler} = this.props;
+        console.log("secont step");
+        submitHandler();
+    }
+
     render(){
         return(
             <Grid>
@@ -19,7 +26,7 @@ class Login extends Component{
                 <Row>
                     <Col xs={12} sm={6} md={3} mdOffset={4} className="ColForm">
                         <div>
-                            <BodyForm />
+                            <BodyForm submitHandler={ () => this.clickHandler()}/>
                         </div>
                     </Col>
                 </Row>

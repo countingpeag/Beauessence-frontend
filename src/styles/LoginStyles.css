@@ -1,9 +1,32 @@
-.loginForm{
+.ColForm{
     background-color: white;
     border-radius: 7px 7px 7px 7px;
+    border: 1px solid #c3c3c3;
+    width: 294px;
+    height: 230px;
 }
 
-.headerForm{
+.ColHeader{
     background-color: white;
     margin-top: 70px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.ColFooter{
+    background-color:white;
+    margin-top: 15px;
+    text-align: center;
+    border-radius: 7px 7px 7px 7px;
+    border: 1px solid #c3c3c3;
+}
+
+.BodyForm{
+    background-color: white;
+    margin-top: 8%;
+}
+
+#loginButton{
+    text-align: center;
+    padding: 6px 88px;
 }

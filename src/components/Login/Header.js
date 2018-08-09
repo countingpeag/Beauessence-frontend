@@ -2,7 +2,10 @@ import React from 'react';
 
 function Header(){
     return(
-        <h2>Login</h2>
+        <div>
+            <h1>Beauessence</h1>
+            <h2>Login</h2>
+        </div>
     );
 }
 

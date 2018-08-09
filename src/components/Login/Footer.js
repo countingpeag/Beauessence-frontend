@@ -2,7 +2,10 @@ import React from 'react';
 
 function Footer(){
     return(
-        <p>@Beauessence</p>
+        <div>
+            <p>@Copyright 2018</p>
+            <p>All rights reserved | Web Develpment</p>
+        </div>
     );
 }
 

@@ -11,10 +11,13 @@ class BodyForm extends Component{
         this.state = {
             password: '',
             userName: '',
-            userNameState: null,
+            userNameState: {
+                stte1: null,
+                help1: null
+            },
             passwordState: {
-                state: null,
-                help: null
+                state2: null,
+                help2: null
             },
         }
         this.handleChange = this.handleChange.bind(this);
@@ -30,27 +33,47 @@ class BodyForm extends Component{
 
     clickHandler(){
         const {submitHandler} = this.props;
-        if( this.state.password.length<4)
+        var flag=true;
+        if(this.state.password.length<4)
         {
+            var help='';
+            if(this.state.password.length===0)
+                help="Este campo e obligatorio.";
+            else
+                help="La contraseña debe ser mayor a 4 digitos"
+
             this.setState({passwordState: {
-                state: 'error',
-                help: 'La contraseña debe ser mayor a 4 digitos'
+                state2: 'error',
+                help2: help
             }});
+
+            flag=false;
         }
-        submitHandler({userName: this.state.userName, password: this.state.password});
+
+        if(this.state.userName.length===0)
+        {
+            this.setState({userNameState:{
+                state1: 'error',
+                help1: 'Este campo es obligatorio'
+            }});
+            flag=false;
+        }
+        if(flag)
+            submitHandler({userName: this.state.userName, password: this.state.password});
     }
 
 
     render(){
         const {userName, password} = this.state;
-        const {state, help} = this.state.passwordState;
+        const {state1, help1} = this.state.userNameState;
+        const {state2, help2} = this.state.passwordState;
         return(
             <div className="BodyForm">
                 <FielGroup 
                     id="userName"
                     label="Nombre de usuario"
-                    state={this.state.userNameState}
-                    help={null}
+                    state={state1}
+                    help={help1}
                     type="text"
                     placeholder="usuario"
                     onChange={this.handleChange}
@@ -59,8 +82,8 @@ class BodyForm extends Component{
                 <FielGroup
                     id="password"
                     label="Contraseña"
-                    state={state}
-                    help={help}
+                    state={state2}
+                    help={help2}
                     type="password"
                     placeholder="contraseña"
                     onChange={this.handleChange}

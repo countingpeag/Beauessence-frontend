@@ -3,7 +3,7 @@
     border-radius: 7px 7px 7px 7px;
     border: 1px solid #c3c3c3;
     width: 294px;
-    height: 230px;
+    height: 270px;
 }
 
 .ColHeader{
@@ -11,12 +11,14 @@
     margin-top: 70px;
     margin-bottom: 10px;
     text-align: center;
+    width: 294px;
 }
 
 .ColFooter{
     background-color:white;
     margin-top: 15px;
     text-align: center;
+    width: 294px;
     border-radius: 7px 7px 7px 7px;
     border: 1px solid #c3c3c3;
 }

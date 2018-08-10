@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Login from './components/Login/index';
+import NavBar from './components/Home/NavBar';
 import axios from 'axios';
 import './App.css';
 
@@ -43,9 +44,12 @@ class App extends Component {
     if(response!==null)
     {
       if(response.userName!==null)
-        renderElement = 'Nuevo Elemento';
+        renderElement = <NavBar />;
       else
+      {
         renderElement = <Login submitHandler={this.submitHandler}/>;
+        alert("usuario o contraseña incorrectos");
+      }
     }
     else
       renderElement = <Login submitHandler={this.submitHandler}/>;

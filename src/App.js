@@ -1,20 +1,61 @@
 import React, { Component } from 'react';
 import Login from './components/Login/index';
+import axios from 'axios';
 import './App.css';
 
 class App extends Component {
 
-  submitHandler(){
-    //console.log("Clicked");
-    console.log(localStorage.getItem("userName"));
-    console.log(localStorage.getItem("password"));
-    localStorage.removeItem("userName");
-    localStorage.removeItem("password");
+  constructor(){
+    super();
+    this.state = {
+      dataToSend: {
+        userName: '',
+        password: ''
+      },
+      response: null
+    };
+
+    this.submitHandler = this.submitHandler.bind(this);
+  }
+
+  submitHandler(data){
+    const {userName, password} = data;
+
+    axios.post("http://localhost:8080/BeautyEssence/rest/administrator", data)
+    .then(({data}) => {
+      console.log(data);
+      this.setState({response:data});
+    })
+    .catch(error => {
+      console.log(error);
+    });
+
+    this.setState({dataToSend: { 
+        userName, 
+        password
+      }
+    });
   }
 
   render() {
+    const {response} = this.state;
+    var renderElement;
+    if(response!==null)
+    {
+      if(response.userName!==null)
+        renderElement = 'Nuevo Elemento';
+      else
+        renderElement = <Login submitHandler={this.submitHandler}/>;
+    }
+    else
+      renderElement = <Login submitHandler={this.submitHandler}/>;
+
     return (
-        <Login submitHandler={this.submitHandler}/>
+      <div>
+        {
+          renderElement
+        }
+      </div>
     );
   }
 }

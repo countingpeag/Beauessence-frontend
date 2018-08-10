@@ -9,48 +9,64 @@ class BodyForm extends Component{
     {
         super();
         this.state = {
-            userNameState: '',
-            passwordState: ''
+            password: '',
+            userName: '',
+            userNameState: null,
+            passwordState: {
+                state: null,
+                help: null
+            },
         }
         this.handleChange = this.handleChange.bind(this);
+        this.clickHandler = this.clickHandler.bind(this);
     }
 
     handleChange(event){
         if(event.target.id==="userName")
-            this.setState({userNameState: event.target.value});
+            this.setState({userName: event.target.value});
         else
-            this.setState({passwordState: event.target.value});
-        
-        localStorage.setItem('userName', this.state.userNameState);
-        localStorage.setItem('password', this.state.passwordState);
+            this.setState({password: event.target.value});
     }
 
-    render(){
-        const {userNameState, passwordState} = this.state;
+    clickHandler(){
         const {submitHandler} = this.props;
+        if( this.state.password.length<4)
+        {
+            this.setState({passwordState: {
+                state: 'error',
+                help: 'La contraseña debe ser mayor a 4 digitos'
+            }});
+        }
+        submitHandler({userName: this.state.userName, password: this.state.password});
+    }
+
+
+    render(){
+        const {userName, password} = this.state;
+        const {state, help} = this.state.passwordState;
         return(
             <div className="BodyForm">
                 <FielGroup 
                     id="userName"
                     label="Nombre de usuario"
-                    state={null}
+                    state={this.state.userNameState}
                     help={null}
                     type="text"
                     placeholder="usuario"
                     onChange={this.handleChange}
-                    value={userNameState}
+                    value={userName}
                 />
                 <FielGroup
                     id="password"
                     label="Contraseña"
-                    state={null}
-                    help={null}
+                    state={state}
+                    help={help}
                     type="password"
                     placeholder="contraseña"
                     onChange={this.handleChange}
-                    value={passwordState}
+                    value={password}
                 />
-                <Button id="loginButton" bsStyle="success" onClick={submitHandler}>Iniciar Sesion</Button>
+                <Button id="loginButton" bsStyle="success" onClick={this.clickHandler}>Iniciar Sesion</Button>
             </div>
         );
     }

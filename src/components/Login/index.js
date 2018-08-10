@@ -7,10 +7,9 @@ import '../../styles/LoginStyles.css';
 
 class Login extends Component{
     
-    clickHandler(){
+    clickHandler(data){
         const {submitHandler} = this.props;
-        console.log("secont step");
-        submitHandler();
+        submitHandler(data);
     }
 
     render(){
@@ -26,7 +25,7 @@ class Login extends Component{
                 <Row>
                     <Col xs={12} sm={6} md={3} mdOffset={4} className="ColForm">
                         <div>
-                            <BodyForm submitHandler={ () => this.clickHandler()}/>
+                            <BodyForm submitHandler={ data => this.clickHandler(data)}/>
                         </div>
                     </Col>
                 </Row>

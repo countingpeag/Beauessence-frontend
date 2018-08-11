@@ -1,0 +1,21 @@
+.info{
+    background-color: white;
+    margin-top: 4%;
+    margin-left: 30%; 
+    text-align: center;
+}
+
+.avatar{
+
+    width: 150px;
+    height: 150px;
+
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    background-size: 100% auto;
+}
+
+.h1Profile{
+    color: white;
+}

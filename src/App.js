@@ -19,6 +19,7 @@ class App extends Component {
     this.submitHandler = this.submitHandler.bind(this);
   }
 
+  //when user make a click perform this functionality(Calls to server)
   submitHandler(data){
     const {userName, password} = data;
 
@@ -30,7 +31,7 @@ class App extends Component {
     .catch(error => {
       console.log(error);
     });
-
+    
     this.setState({dataToSend: { 
         userName, 
         password
@@ -41,6 +42,8 @@ class App extends Component {
   render() {
     const {response} = this.state;
     var renderElement;
+
+    //choose what to render
     if(response!==null)
     {
       if(response.userName!==null)

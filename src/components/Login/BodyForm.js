@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import FielGroup from './FieldGroup';
+import PropTypes from 'prop-types';
 import '../../styles/LoginStyles.css';
 
 class BodyForm extends Component{
@@ -24,16 +25,36 @@ class BodyForm extends Component{
         this.clickHandler = this.clickHandler.bind(this);
     }
 
+    //Method to handle every chanche in the textBoxes
     handleChange(event){
+        //it checks which box is the event
         if(event.target.id==="userName")
             this.setState({userName: event.target.value});
         else
             this.setState({password: event.target.value});
+
+        //if the usernameBox has more than 1 character the error state is removed
+        if(this.state.userName.length>0){
+            this.setState({userNameState: {
+                state1: null,
+                help1: null
+            }});
+        }
+
+        //if the passwordBox has more than 1 character the error state is removed
+        if(this.state.password.length>0){
+            this.setState({passwordState: {
+                state2: null,
+                help2: null
+            }});
+        }
     }
 
+    //Method to handle every click
     clickHandler(){
         const {submitHandler} = this.props;
-        var flag=true;
+
+        //if the passwordBox has less character than 4 set the passwordSate to error
         if(this.state.password.length<4)
         {
             var help='';
@@ -46,20 +67,20 @@ class BodyForm extends Component{
                 state2: 'error',
                 help2: help
             }});
-
-            flag=false;
         }
 
+        //if the usernameBox is empty set the passwordState to error
         if(this.state.userName.length===0)
         {
             this.setState({userNameState:{
                 state1: 'error',
                 help1: 'Este campo es obligatorio'
             }});
-            flag=false;
         }
-        if(flag)
+
+        if(this.state.password!=='' && this.state.userName!=='')
             submitHandler({userName: this.state.userName, password: this.state.password});
+
     }
 
 
@@ -93,6 +114,10 @@ class BodyForm extends Component{
             </div>
         );
     }
+}
+
+BodyForm.propTypes = {
+    submitHandler: PropTypes.func.isRequired,
 }
 
 export default BodyForm;

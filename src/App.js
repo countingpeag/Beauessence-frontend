@@ -10,10 +10,12 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      response: null
+      response: null,
+      isLogin: false
     };
 
     this.submitHandler = this.submitHandler.bind(this);
+    this.logoutHandler = this.logoutHandler.bind(this);
   }
 
   //when user make a click perform this functionality (Calls to server)
@@ -29,6 +31,10 @@ class App extends Component {
     });
   }
 
+  logoutHandler(){
+    console.log("salio");
+  }
+
   //Choose what to render
   toRender(response){
     let renderElement;
@@ -41,7 +47,7 @@ class App extends Component {
       renderElement = <Login submitHandler={this.submitHandler}/>
     }
     else
-      renderElement = <AppContent />;
+      renderElement = <AppContent logout={this.logoutHandler}/>;
 
     return renderElement;
   }

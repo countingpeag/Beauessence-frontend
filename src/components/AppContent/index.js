@@ -11,14 +11,26 @@ class AppContent extends Component{
         this.state = {
             navBarState: 'home'
         };
+
+        this.toRender = this.toRender.bind(this);
     }
 
     handleNavBar(pressedElement){
         this.setState({navBarState: pressedElement});
     }
 
+    toRender(){
+        const {logout} = this.props;
+        const {navBarState} = this.state;
+        if(navBarState==='home')
+            return <Home />
+        else if(navBarState==='profile')
+            return <Profile />
+        else
+            logout();
+    }
+
     render(){
-        const { navBarState } = this.state;
         return(
             <Grid fluid>
                 <Row>
@@ -26,9 +38,8 @@ class AppContent extends Component{
                 </Row>
                 <Row>
                     {
-                        navBarState==='home' ? <Home /> : <Profile /> 
+                        this.toRender()
                     }
-
                 </Row>
             </Grid>
         );

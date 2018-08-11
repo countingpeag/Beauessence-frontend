@@ -22,6 +22,8 @@ function deleteContent(){
     sessionStorage.removeItem('lastName');
     sessionStorage.removeItem('password');
     sessionStorage.removeItem('userName');
+
+    return false;
 }
 
 function isNull(){

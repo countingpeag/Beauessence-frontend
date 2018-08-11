@@ -2,7 +2,12 @@ import React from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import '../../styles/HomeStyles.css';
 
-function NavBar(){
+function NavBar({handleClick})
+{
+    const clickEvent = event => {
+        handleClick(event.target.id);
+    };
+
     return(
         <div>
             <Navbar className="navBar">
@@ -14,13 +19,13 @@ function NavBar(){
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav pullRight>
-                        <NavItem key={1} href="#">
+                        <NavItem key={1} id="home" onClick={clickEvent}>
                             Inicio
                         </NavItem>
-                        <NavItem key={2} href="#">
+                        <NavItem key={2} id="profile" onClick={clickEvent}>
                             Perfil
                         </NavItem>
-                        <NavItem key={2} href="#">
+                        <NavItem key={3} id="logout" onClick={clickEvent}>
                             Cerrar sesion
                         </NavItem>
                     </Nav>

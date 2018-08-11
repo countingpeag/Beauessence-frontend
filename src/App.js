@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Login from './components/Login/index';
-import NavBar from './components/Home/NavBar';
+import AppContent from './components/AppContent';
 import axios from 'axios';
 import './App.css';
 
@@ -9,10 +9,6 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      dataToSend: {
-        userName: '',
-        password: ''
-      },
       response: null
     };
 
@@ -21,46 +17,43 @@ class App extends Component {
 
   //when user make a click perform this functionality(Calls to server)
   submitHandler(data){
-    const {userName, password} = data;
 
     axios.post("http://localhost:8080/BeautyEssence/rest/administrator", data)
-    .then(({data}) => {
-      console.log(data);
+    .then( ({data}) => {
+      sessionStorage.setItem('idAdmin', data.idAdmin);
       this.setState({response:data});
     })
     .catch(error => {
       console.log(error);
     });
-    
-    this.setState({dataToSend: { 
-        userName, 
-        password
-      }
-    });
   }
 
-  render() {
-    const {response} = this.state;
-    var renderElement;
-
-    //choose what to render
-    if(response!==null)
+  //Choose what to render
+  toRender(response){
+    let renderElement;
+    if(sessionStorage.getItem('idAdmin')!==null)
     {
-      if(response.userName!==null)
-        renderElement = <NavBar />;
+      if(sessionStorage.getItem('idAdmin')!=='null')
+        renderElement = <AppContent />;
       else
       {
-        renderElement = <Login submitHandler={this.submitHandler}/>;
-        alert("usuario o contraseña incorrectos");
+        renderElement = <Login submitHandler={this.submitHandler}/>
+        alert("el usuario o contraseña es incorrecto");
       }
     }
     else
       renderElement = <Login submitHandler={this.submitHandler}/>;
 
+    return renderElement;
+  }
+
+  render() {
+    const {response} = this.state;
+    let element = this.toRender(response);
     return (
       <div>
         {
-          renderElement
+          element
         }
       </div>
     );

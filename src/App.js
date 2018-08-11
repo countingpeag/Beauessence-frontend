@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Login from './components/Login/index';
 import AppContent from './components/AppContent';
+import {storage} from './components/Storage/Storage';
 import axios from 'axios';
 import './App.css';
 
@@ -15,12 +16,12 @@ class App extends Component {
     this.submitHandler = this.submitHandler.bind(this);
   }
 
-  //when user make a click perform this functionality(Calls to server)
+  //when user make a click perform this functionality (Calls to server)
   submitHandler(data){
 
     axios.post("http://localhost:8080/BeautyEssence/rest/administrator", data)
     .then( ({data}) => {
-      sessionStorage.setItem('idAdmin', data.idAdmin);
+      storage.setContent(data)
       this.setState({response:data});
     })
     .catch(error => {
@@ -31,29 +32,26 @@ class App extends Component {
   //Choose what to render
   toRender(response){
     let renderElement;
-    if(sessionStorage.getItem('idAdmin')!==null)
+
+    if(storage.isNull())
     {
-      if(sessionStorage.getItem('idAdmin')!=='null')
-        renderElement = <AppContent />;
-      else
-      {
-        renderElement = <Login submitHandler={this.submitHandler}/>
-        alert("el usuario o contraseña es incorrecto");
-      }
+      if(response!==null)
+        alert("usuario o contraseña incorrecto");
+
+      renderElement = <Login submitHandler={this.submitHandler}/>
     }
     else
-      renderElement = <Login submitHandler={this.submitHandler}/>;
+      renderElement = <AppContent />;
 
     return renderElement;
   }
 
   render() {
     const {response} = this.state;
-    let element = this.toRender(response);
     return (
       <div>
         {
-          element
+          this.toRender(response)
         }
       </div>
     );

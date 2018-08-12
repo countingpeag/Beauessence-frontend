@@ -1,10 +1,11 @@
 import React from 'react';
+import {Image} from 'react-bootstrap';
+import '../../styles/LoginStyles.css';
 
 function Header(){
     return(
         <div>
-            <h1>Beauessence</h1>
-            <h2>Login</h2>
+            <Image id="loginImage" src={require("../../images/beauessence.jpg")} />
         </div>
     );
 }

@@ -2,22 +2,28 @@
     background-color: white;
     border-radius: 7px 7px 7px 7px;
     border: 1px solid #c3c3c3;
+    margin-left: 37%;
+    margin-top: 1%;
     width: 294px;
     height: 270px;
 }
 
 .ColHeader{
-    background-color: white;
-    margin-top: 70px;
-    margin-bottom: 10px;
-    text-align: center;
-    width: 294px;
+    background-color: rgb(247, 247, 247);
+    font-family: sans-serif;
+    margin-top: 6%;
+    margin-bottom: 2%;
+    margin-left: 36%;
+    width: 325px;
+    height: 80px;
 }
 
 .ColFooter{
     background-color:white;
     margin-top: 15px;
     text-align: center;
+    margin-left: 37%;
+    margin-top: 1%;
     width: 294px;
     border-radius: 7px 7px 7px 7px;
     border: 1px solid #c3c3c3;
@@ -30,5 +36,12 @@
 
 #loginButton{
     text-align: center;
+    background-color: rgb(224, 153, 161);
+    border-color: rgb(220, 144, 154);
     padding: 6px 88px;
+}
+
+#loginImage{
+    width: 294px;
+    height: 80px;
 }

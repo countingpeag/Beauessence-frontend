@@ -1,6 +1,6 @@
 import React from 'react';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
-import '../../styles/HomeStyles.css';
+import { Navbar, Nav, NavItem, Image } from 'react-bootstrap';
+import '../../styles/NavBarStyles.css';
 
 function NavBar({handleClick})
 {
@@ -13,12 +13,12 @@ function NavBar({handleClick})
             <Navbar className="navBar">
                 <Navbar.Header>
                     <Navbar.Brand>
-                        Beauessence
+                        <Image className="image" src={require("../../images/beauessence.jpg")} />
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
                 <Navbar.Collapse>
-                    <Nav pullRight>
+                    <Nav className="containerItems" pullRight>
                         <NavItem key={1} id="home" onClick={clickEvent}>
                             Inicio
                         </NavItem>

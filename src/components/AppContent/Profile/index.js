@@ -19,7 +19,7 @@ class Profile extends Component{
                 <Row>
                     <Col xs={5} sm={5} md={5} className="info">
                         <OverlayTrigger trigger="click" placement="right" overlay={popoverRight}>
-                            <Image className="avatar" src={require("../../../images/logo.jpg")} rounded />
+                            <Image className="avatar" src={require("../../../images/logo.jpg")} />
                         </OverlayTrigger >
                         <h1><Label className="h1Profile">Usuario: {userName}</Label></h1>
                         <h1><Label className="h1Profile">Nombre: {firstName}</Label> </h1>

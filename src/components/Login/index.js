@@ -16,21 +16,21 @@ class Login extends Component{
         return(
             <Grid>
                 <Row>
-                    <Col xs={12} sm={6} md={3} xsOffset={4} className="ColHeader">
+                    <Col xs={12} sm={6} md={3} className="ColHeader">
                         <div>
                             <Header />
                         </div>
                     </Col>
                 </Row>
                 <Row>
-                    <Col xs={12} sm={6} md={3} xsOffset={4} className="ColForm">
+                    <Col xs={12} sm={6} md={3} className="ColForm">
                         <div>
                             <BodyForm submitHandler={ data => this.clickHandler(data)}/>
                         </div>
                     </Col>
                 </Row>
                 <Row>
-                    <Col xs={12} sm={6} md={3} xsOffset={4} className="ColFooter">
+                    <Col xs={12} sm={6} md={3} className="ColFooter">
                         <div>
                             <Footer />
                         </div>

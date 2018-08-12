@@ -1,5 +1,5 @@
 .info{
-    background-color: white;
+    background-color: rgb(247, 247, 247);
     margin-top: 4%;
     margin-left: 30%; 
     text-align: center;
@@ -14,6 +14,8 @@
     background-position: 50%;
     border-radius: 50%;
     background-size: 100% auto;
+
+    box-shadow: 10px 10px 16px -5px rgba(0,0,0,0.75);
 }
 
 .h1Profile{

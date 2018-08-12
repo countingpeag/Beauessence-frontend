@@ -3,11 +3,12 @@ import {ButtonToolbar, DropdownButton} from 'react-bootstrap';
 
 
 function Dropdown({title, ...props}){
+
     return(
         <ButtonToolbar>
             <DropdownButton
                 bsSize="large"
-                title="Personal"
+                title={title}
                 id="dropdown-size-large"
             >
             {

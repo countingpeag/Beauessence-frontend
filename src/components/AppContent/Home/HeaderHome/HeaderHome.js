@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Grid, Row, Col, Button, MenuItem, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
+import {Grid, Row, Col, Button, MenuItem, FormGroup, ControlLabel, FormControl, Modal} from 'react-bootstrap';
 import axios from 'axios';
 import Dropdown from './Dropdown';
 import '../../../../styles/HomeStyles.css';
@@ -7,21 +7,22 @@ import FielGroup from '../../../Login/FieldGroup';
 
 class HeaderHome extends Component {
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             staff: [],
             services: [],
             staffItem: {},
             servicesItem: {},
             staffDropdown: 'Personal',
-            servicesDropdown: 'service',
+            servicesDropdown: 'Service',
             commentsState: '',
             priceState: ''
         };
-
+        
         this.handleChoose = this.handleChoose.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.addHistorical = this.addHistorical.bind(this);
     }
 
     
@@ -52,16 +53,32 @@ class HeaderHome extends Component {
     }
 
     handleChoose(item, component){
-        if(component.target.id==='staff')
-        {
+        if(component.target.id==='staff'){
+            console.log("entro1");
             this.setState({staffItem: item});
             this.setState({staffDropdown:item.firstName});
         }
-        else
-        {
-            this.setState({staffItem: item});
+        else if(component.target.id==='new'){
+            console.log("Hola");
+        }
+        else if(component.target.id==='services'){
+            console.log("entro2");
+            this.setState({servicesItem: item});
             this.setState({servicesDropdown:item.serviceName});
         }
+    }
+
+    addHistorical(){
+        const {staffItem, servicesItem, commentsState, priceState} = this.state;
+        const {sentData} = this.props;
+        let historicalObj = {
+            staff: staffItem,
+            service: servicesItem,
+            comment: commentsState,
+            price: priceState
+        }
+
+        sentData(historicalObj);
     }
 
     render(){
@@ -72,6 +89,12 @@ class HeaderHome extends Component {
                     <Col xs={6} md={2} id="staff">
                         <Dropdown  
                             title={this.state.staffDropdown}
+                            nuevo={<MenuItem 
+                                    id="new"
+                                    onClick={component => this.handleChoose({}, component)}
+                                    eventKey="new"><strong>nuevo</strong>
+                                    </MenuItem>
+                            }
                             items={staff.map( item => (
                                 <MenuItem 
                                     id="staff"
@@ -85,6 +108,13 @@ class HeaderHome extends Component {
                     <Col xs={6} md={2} id="services">
                         <Dropdown  
                             title={this.state.servicesDropdown} 
+                            nuevo={<MenuItem 
+                                id="new"
+                                onClick={component => this.handleChoose({}, component)} 
+                                key="new" 
+                                eventKey="new"><strong>nuevo</strong>
+                                </MenuItem>
+                            }  
                             items={services.map( item => (
                                 <MenuItem 
                                     id="services"
@@ -114,7 +144,7 @@ class HeaderHome extends Component {
                         />
                     </Col>
                     <Col xs={6} md={2} id="submit">
-                        <Button id="button" onClick={() => console.log(this.state.staffItem)}>Agregar</Button>
+                        <Button id="button" onClick={this.addHistorical}>Agregar</Button>
                     </Col>
                 </Row>
             </Grid>

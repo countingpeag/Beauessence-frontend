@@ -4,6 +4,8 @@ import {Table} from 'react-bootstrap';
 class BodyHome extends Component{
 
     render(){
+        const {historical} = this.props;
+        console.log("body");
         return(
             <Table striped bordered condensed hover>
                 <thead>
@@ -19,23 +21,22 @@ class BodyHome extends Component{
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td colSpan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
+                    {
+                         historical.map( item => {
+                            return(
+                                <tr key={item.idHistorical}>
+                                    <td>{item.idHistorical}</td>
+                                    <td>{item.staff.firstName}</td>
+                                    <td>{item.staff.lastName}</td>
+                                    <td>{item.service.serviceName}</td>
+                                    <td>{item.service.details}</td>
+                                    <td>{item.comment}</td>
+                                    <td>12/08/2018</td>
+                                    <td>{item.price}</td>
+                                </tr>
+                            );
+                        })
+                    }
                 </tbody>
             </Table>
         );

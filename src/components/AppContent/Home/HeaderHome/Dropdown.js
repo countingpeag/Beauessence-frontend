@@ -2,8 +2,7 @@ import React from 'react';
 import {ButtonToolbar, DropdownButton} from 'react-bootstrap';
 
 
-function Dropdown({title, ...props}){
-
+function Dropdown({title="nuevo", nuevo, ...props}){
     return(
         <ButtonToolbar>
             <DropdownButton
@@ -13,6 +12,9 @@ function Dropdown({title, ...props}){
             >
             {
                 props.items
+            }
+            {
+                nuevo
             }
             </DropdownButton>
         </ButtonToolbar>

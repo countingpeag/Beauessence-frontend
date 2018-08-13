@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {Grid, Row, Col} from 'react-bootstrap';
 import HeaderHome from './HeaderHome/HeaderHome';
-import BodyHome from './BodyHome';
+import BodyHome from './BodyHome/BodyHome';
 import axios from 'axios';
+import '../../../styles/HomeStyles.css';
 
 class Home extends Component{
 
@@ -13,6 +14,8 @@ class Home extends Component{
             historical: [],
             clickButton: false
         }
+
+        this.updateHistorical = this.updateHistorical.bind(this);
     }
 
     sentData(historical){
@@ -26,17 +29,14 @@ class Home extends Component{
         .catch(error => {
             console.log(error);
         });
-
-        axios.get('http://localhost:8080/BeautyEssence/rest/historical')
-        .then(({data}) => {
-            this.setState({historical:data});
-        })
-        .catch(error => {
-            console.log(error);
-        });
+        this.updateHistorical();
     }
 
     componentDidMount(){
+        this.updateHistorical();
+    }
+
+    updateHistorical = () => {
         axios.get('http://localhost:8080/BeautyEssence/rest/historical')
         .then(({data}) => {
             this.setState({historical:data});
@@ -47,8 +47,7 @@ class Home extends Component{
     }
 
     render(){
-        console.log("heello");
-        const {historical} =this.state; 
+        const {historical} = this.state;
         return(
             <Grid>
                 <Row>
@@ -57,7 +56,7 @@ class Home extends Component{
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
+                    <Col className="bodyHome">
                         <BodyHome historical={historical}/>
                     </Col>
                 </Row>

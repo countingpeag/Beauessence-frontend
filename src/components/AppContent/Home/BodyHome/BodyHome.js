@@ -1,14 +1,43 @@
 import React, {Component} from 'react';
-import {Table} from 'react-bootstrap';
+import {Table, Image, Button} from 'react-bootstrap';
+import Popup from './Popup';
+import '../../../../styles/HomeStyles.css';
 
 class BodyHome extends Component{
 
+    constructor()
+    {
+        super();
+        this.state = {
+            open: false,
+        };
+
+        this.handleClickOpen = this.handleClickOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+    }
+    
+      handleClickOpen = () => {
+        this.setState({ open: true });
+      };
+    
+      handleClose = () => {
+        this.setState({ open: false });
+      };
+
+    updateClick = () => {
+        alert("actualizar");
+    }
+
+    deleteClick = () => {
+        alert("eliminar");
+    }
+
     render(){
         const {historical} = this.props;
-        console.log("body");
         return(
+            <div> 
             <Table striped bordered condensed hover>
-                <thead>
+                <thead className="headertable">
                     <tr>
                         <th>#</th>
                         <th>Nombre</th>
@@ -31,14 +60,22 @@ class BodyHome extends Component{
                                     <td>{item.service.serviceName}</td>
                                     <td>{item.service.details}</td>
                                     <td>{item.comment}</td>
-                                    <td>12/08/2018</td>
+                                    <td>{item.historicalDate}</td>
                                     <td>{item.price}</td>
+                                    <td id="buttons">
+                                        <Image id="updateimage" src={require('../../../../images/update.png')} 
+                                            onClick={this.handleClickOpen} />
+                                        <Image id="deleteimage" src={require('../../../../images/delete.png')} 
+                                            onClick={this.handleClickOpen} />
+                                    </td>
                                 </tr>
                             );
                         })
                     }
                 </tbody>
             </Table>
+            <Popup openfun={this.state.open} closefun={this.handleClose}/>
+            </div>
         );
     }
 }

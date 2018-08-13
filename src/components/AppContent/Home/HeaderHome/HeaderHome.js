@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Grid, Row, Col, Button, MenuItem, FormGroup, ControlLabel, FormControl, Modal} from 'react-bootstrap';
+import {Grid, Row, Col, Button, MenuItem, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
 import axios from 'axios';
 import Dropdown from './Dropdown';
 import '../../../../styles/HomeStyles.css';
@@ -7,8 +7,8 @@ import FielGroup from '../../../Login/FieldGroup';
 
 class HeaderHome extends Component {
 
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
         this.state = {
             staff: [],
             services: [],
@@ -54,30 +54,33 @@ class HeaderHome extends Component {
 
     handleChoose(item, component){
         if(component.target.id==='staff'){
-            console.log("entro1");
             this.setState({staffItem: item});
             this.setState({staffDropdown:item.firstName});
         }
-        else if(component.target.id==='new'){
-            console.log("Hola");
-        }
         else if(component.target.id==='services'){
-            console.log("entro2");
             this.setState({servicesItem: item});
             this.setState({servicesDropdown:item.serviceName});
         }
+        else
+            console.log("Hola");
     }
 
     addHistorical(){
         const {staffItem, servicesItem, commentsState, priceState} = this.state;
+        let date = new Date();
+        let day = date.getDate()+1;
+        let month = date.getMonth()+1;
+        let year = date.getFullYear();
+        let today = `${year}-${month}-${day}`;
         const {sentData} = this.props;
+
         let historicalObj = {
             staff: staffItem,
             service: servicesItem,
             comment: commentsState,
-            price: priceState
+            price: priceState,
+            historicalDate: today
         }
-
         sentData(historicalObj);
     }
 

@@ -7,11 +7,10 @@ import FielGroup from '../../../Login/FieldGroup';
 
 class HeaderHome extends Component {
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
+        
         this.state = {
-            staff: [],
-            services: [],
             staffItem: {},
             servicesItem: {},
             staffDropdown: 'Personal',
@@ -24,25 +23,6 @@ class HeaderHome extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.addHistorical = this.addHistorical.bind(this);
     }
-
-    
-    componentDidMount(){
-        axios.get('http://localhost:8080/BeautyEssence/rest/staff')
-        .then(({data}) => {
-            this.setState({staff:data});
-        })
-        .catch(error => {
-            console.log(error);
-        });
-
-        axios.get('http://localhost:8080/BeautyEssence/rest/service')
-        .then(({data}) => {
-            this.setState({services:data});
-        })
-        .catch(error => {
-            console.log(error);
-        });
-    }    
 
     handleChange(event){
         if(event.target.id==='textArea')
@@ -72,7 +52,6 @@ class HeaderHome extends Component {
         let month = date.getMonth()+1;
         let year = date.getFullYear();
         let today = `${year}-${month}-${day}`;
-        const {sentData} = this.props;
 
         let historicalObj = {
             staff: staffItem,
@@ -81,11 +60,22 @@ class HeaderHome extends Component {
             price: priceState,
             historicalDate: today
         }
-        sentData(historicalObj);
+        
+        
+        axios.post('http://localhost:8080/BeautyEssence/rest/historical/add', historicalObj)
+        .then(({data}) => {
+            if(data!==0)
+                alert("Agregado");
+            else
+                alert("El elemento no pudo ser agregado");
+        })
+        .catch(error => {
+            console.log(error);
+        });
     }
 
     render(){
-        const {staff, services} = this.state;
+        const {staff, services} = this.props;
         return(
             <Grid>
                 <Row className="headerHome">
@@ -141,9 +131,9 @@ class HeaderHome extends Component {
                             help={null}
                             type="text"
                             placeholder="precio"
-                            onChange={null}
                             label=""
-                            onChange={this.handleChange} value={this.state.priceState}
+                            onChange={this.handleChange} 
+                            value={this.state.priceState}
                         />
                     </Col>
                     <Col xs={6} md={2} id="submit">

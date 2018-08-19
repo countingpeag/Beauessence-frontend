@@ -12,28 +12,35 @@ class Home extends Component{
         super();
         this.state ={
             historical: [],
-            clickButton: false
+            staff: [],
+            services: [],
         }
 
         this.updateHistorical = this.updateHistorical.bind(this);
-    }
-
-    sentData(historical){
-        console.log(JSON.stringify(historical));
-
-        axios.post('http://localhost:8080/BeautyEssence/rest/historical/add', historical)
-        .then(response => {
-            alert("Agregado");
-            this.setState({clickButton:true});
-        })
-        .catch(error => {
-            console.log(error);
-        });
-        this.updateHistorical();
+        this.updateSelects = this.updateSelects.bind(this);
     }
 
     componentDidMount(){
         this.updateHistorical();
+        this.updateSelects();
+    }
+
+    updateSelects(){
+        axios.get('http://localhost:8080/BeautyEssence/rest/staff')
+        .then(({data}) => {
+            this.setState({staff:data});
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
+        axios.get('http://localhost:8080/BeautyEssence/rest/service')
+        .then(({data}) => {
+            this.setState({services:data});
+        })
+        .catch(error => {
+            console.log(error);
+        });
     }
 
     updateHistorical = () => {
@@ -47,12 +54,12 @@ class Home extends Component{
     }
 
     render(){
-        const {historical} = this.state;
+        const {historical, staff, services} = this.state;
         return(
             <Grid>
                 <Row>
                     <Col>
-                        <HeaderHome sentData={historical => this.sentData(historical)}/>
+                        <HeaderHome staff={staff} services={services}/>
                     </Col>
                 </Row>
                 <Row>

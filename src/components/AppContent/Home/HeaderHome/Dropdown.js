@@ -2,7 +2,7 @@ import React from 'react';
 import {ButtonToolbar, DropdownButton} from 'react-bootstrap';
 
 
-function Dropdown({title="nuevo", nuevo, ...props}){
+function Dropdown({title="nuevo", nuevo="nuevo", ...props}){
     return(
         <ButtonToolbar>
             <DropdownButton
